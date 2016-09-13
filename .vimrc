@@ -35,6 +35,8 @@ Plugin 'Shutnik/jshint2.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 
 call vundle#end()
 filetype plugin indent on
@@ -75,3 +77,5 @@ syntax on
 au BufNewFile,BufRead *.scss,*.sass set syntax=css
 au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/syntax/yaml.v
 
+"JSX configuration
+let g:jsx_ext_required = 0
