@@ -1,4 +1,4 @@
-"Note for MACOSX: brew install vim --with-python3 --without-python --with-lua --with-override-system-vi
+"Note for MACOSX: brew install vim --with-python3 --with-lua --with-override-system-vi
 
 "===== Basic configuration ====="
 set nocompatible
@@ -46,6 +46,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'Shougo/neocomplete'
 Plugin 'Townk/vim-autoclose'
 Plugin 'alvan/vim-closetag'
+Plugin 'vim-syntastic/syntastic'
 
 call vundle#end()
 filetype plugin indent on
@@ -60,10 +61,16 @@ let g:lightline = {
         \ "readonly": '%{&readonly?"⭤":""}',
     \ },
     \ "active": {
-    \   "left": [ [ "mode", "paste" ], [ "fugitive", "filename" ] ]
+    \   "left": [ [ "mode", "paste" ], [ "fugitive", "filename" ], [ "syntastic" ] ]
     \ },
     \"component_function": {
     \    "fugitive": "MyFugitive",
+    \ },
+    \ "component_expand": {
+    \   "syntastic": "SyntasticStatuslineFlag",
+    \ },
+    \ "component_type": {
+    \   "syntastic": "error",
     \ },
     \ "separator": { "left": "\ue0b0", "right": "\ue0b2" },
     \ "subseparator": { "left": "\ue0b1", "right": "\ue0b3" }
@@ -81,10 +88,19 @@ function! MyFugitive()
     return ""
 endfunction
 
+augroup AutoSyntastic
+  autocmd!
+  autocmd BufWritePost *.c,*.cpp call s:syntastic()
+augroup END
+function! s:syntastic()
+  SyntasticCheck
+  call lightline#update()
+endfunction
+
 "===== Syntax ====="
 syntax on
 au BufNewFile,BufRead *.scss,*.sass set syntax=css
-au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/syntax/yaml.v
+au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/syntax/yaml.vim
 
 "JSX configuration
 let g:jsx_ext_required = 0
@@ -97,3 +113,12 @@ let g:neocomplete#enable_at_startup = 1
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+"Syntastic configuration
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_loc_list_height = 2
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_java_javac_autoload_maven_classpath = 0
