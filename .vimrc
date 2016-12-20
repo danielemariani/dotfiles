@@ -1,3 +1,5 @@
+"Note for MACOSX: brew install vim --with-python3 --without-python --with-lua --with-override-system-vi
+
 "===== Basic configuration ====="
 set nocompatible
 set incsearch
@@ -13,6 +15,7 @@ set cursorcolumn
 set cursorline
 set nowrap
 set noswapfile
+set backspace=indent,eol,start
 
 "===== Colors and theme ====="
 set t_Co=256
@@ -37,6 +40,12 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'elzr/vim-json'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'Shougo/neocomplete'
+Plugin 'Townk/vim-autoclose'
+Plugin 'alvan/vim-closetag'
 
 call vundle#end()
 filetype plugin indent on
@@ -79,3 +88,12 @@ au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/syntax/yaml.v
 
 "JSX configuration
 let g:jsx_ext_required = 0
+
+"Closetag configuration
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.hbs"
+
+"Autocomplete configuration
+let g:neocomplete#enable_at_startup = 1
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
